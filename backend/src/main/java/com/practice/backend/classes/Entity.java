@@ -1,13 +1,17 @@
 package com.practice.backend.classes;
 
-public class pokemon {
+public class Entity {
     private String name;
     private String health;
     private String image;
     private String type;
     private int level;
 
-    public pokemon(String name, String type, int level) {
+    // No-argument constructor required by Firestore for deserialization
+    public Entity() {
+    }
+
+    public Entity(String name, String type, int level) {
         this.name = name;
         this.type = type;
         this.level = level;
