@@ -2,6 +2,9 @@ package com.practice.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -39,6 +42,26 @@ public class BattleController {
         
         Entity player2 = new Entity("Charmander", "Fire", 100);
         player2.setHealth("100");
+        
+        return battleSave.saveBattle(player1, player2);
+    }
+
+    @PostMapping("/battle/setup")
+    public String setupBattle(
+            @RequestParam String player1Name,
+            @RequestParam String player1Type,
+            @RequestParam(defaultValue = "50") int player1Level,
+            @RequestParam(defaultValue = "100") String player1Health,
+            @RequestParam String player2Name,
+            @RequestParam String player2Type,
+            @RequestParam(defaultValue = "50") int player2Level,
+            @RequestParam(defaultValue = "100") String player2Health) {
+        
+        Entity player1 = new Entity(player1Name, player1Type, player1Level);
+        player1.setHealth(player1Health);
+        
+        Entity player2 = new Entity(player2Name, player2Type, player2Level);
+        player2.setHealth(player2Health);
         
         return battleSave.saveBattle(player1, player2);
     }
